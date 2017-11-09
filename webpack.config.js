@@ -13,7 +13,7 @@ const {
 } = require('@webpack-blocks/webpack2')
 
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8000
 //指定module根路径为src
 const sourceDir = process.env.SOURCE || 'src'
 const publicPath = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/')
@@ -23,7 +23,10 @@ const outputPath = path.join(process.cwd(), 'dist')
 const babel = () => () => ({
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.png$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/png' },
+      { test: /\.jpg$/, loader: 'url-loader?prefix=images/&limit=8000&mimetype=image/jpeg' },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
     ],
   },
 })
